@@ -13,6 +13,7 @@ class UtopiaManager:
     def __init__(self, config_file="config.json"):
         self.config = self.get_config(config_file)
         self.api_key = self.config["UTOPIA_API_KEY"]
+        self.url = self.confing("UTOPIA_URL")
 
     @staticmethod
     def get_config(config_file):
@@ -27,7 +28,7 @@ class UtopiaManager:
             "mac": mac_address,
         }
 
-        response = requests.post("https://api.utopiafiber.com/spquery/macsearch", data=json.dumps(JSON_REQUEST))
+        response = requests.post(f"{self.url}spquery/macsearch", data=json.dumps(JSON_REQUEST))
         try:
             APView = response.json()["result"][0]['eth']['eth1']["macs"][0][:17]
             # print(APView)
@@ -45,7 +46,7 @@ class UtopiaManager:
             "siteid": site_id,
         }
 
-        response = requests.post("https://api.utopiafiber.com/spquery/apview", data=json.dumps(JSON_REQUEST))
+        response = requests.post(f"{self.url}/spquery/apview", data=json.dumps(JSON_REQUEST))
         log_message_whole('info', response.json(), filename)
         try:
             APView = response.json()["result"][0]['eth']['eth1']["macs"][0][:17]
@@ -92,11 +93,11 @@ class UtopiaManager:
         }
         try:
             # Make the API call to Utopia
-            #response = requests.post("https://api.utopiafiber.com/spquery/macsearch", data=json.dumps(JSON_REQUEST))
+            #response = requests.post(f"{self.url}/spquery/macsearch", data=json.dumps(JSON_REQUEST))
 
             log_message_whole('api',  f"API call to UTOPIA: https://api.utopiafiber.com/spquery/macsearch {json.dumps(JSON_REQUEST)}", filename)
 
-            response = requests.post("https://api.utopiafiber.com/spquery/macsearch", data=json.dumps(JSON_REQUEST))
+            response = requests.post(f"{self.url}/spquery/macsearch", data=json.dumps(JSON_REQUEST))
 
             log_message_whole('api',  f"API call from UTOPIA: {response.json()}", filename)
 
@@ -194,7 +195,7 @@ class UtopiaManager:
         }
 
         try:
-            response = requests.post("https://api.utopiafiber.com/spquery/apview", data=json.dumps(JSON_REQUEST))
+            response = requests.post(f"{self.url}/spquery/apview", data=json.dumps(JSON_REQUEST))
             response.raise_for_status()  # Raise exception for HTTP errors (4xx or 5xx)
 
             # Load JSON data
@@ -237,7 +238,7 @@ class UtopiaManager:
             return []
 
     def get_service(self, site_id):
-        utopia_api_url = "https://api.utopiafiber.com/spquery/service"
+        utopia_api_url = f"{self.url}/spquery/service"
 
         params = {
             "apikey": self.api_key,
@@ -274,4 +275,5 @@ class UtopiaManager:
         except Exception as e:
             log_message_whole('error', f"Exception during Utopia API request: {str(e)}", filename)
             return None
+
 
