@@ -25,7 +25,7 @@ class EmailSender:
             msg = EmailMessage()
 
             # Recipients
-            recipients = ['osobol@theglobal.net', 'amolenda@theglobal.net', 'sreed@theglobal.net']
+            recipients = ['EMAILS']
             # recipients = ['osobol@theglobal.net']
             # Set email details
             msg['Subject'] = f'Dynamic Lease Runner (DLR) Log for {current_date}'
@@ -49,3 +49,4 @@ class EmailSender:
             print("Email sent successfully!")
         except Exception as e:
             print(f"Error sending email: {e}")
+
