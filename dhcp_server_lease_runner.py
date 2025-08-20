@@ -224,15 +224,6 @@ def log_error(message):
     error_messages.append(message)
 
 
-# def send_summary_email():
-#     formatted_datetime = datetime.datetime.now().strftime('%H:%M:%S %m-%d-%Y')
-#
-#     body = f"Total successful leases: {successful_leases}\n" \
-#            f"Total unsuccessful leases: {unsuccessful_leases}\n\n" \
-#            f"Errors:\n" + "\n".join(error_messages)
-#
-#     email_manager.send_email_with_attachment(body)
-
 def send_summary_email():
     formatted_datetime = datetime.datetime.now().strftime('%H:%M:%S %m-%d-%Y')
 
@@ -268,3 +259,4 @@ def normalize_name(name):
 
 if __name__ == '__main__':
     start_app()
+
