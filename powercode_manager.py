@@ -176,10 +176,6 @@ class PowercodeManager:
             equipment_ids = []
 
             if equipment:
-                # # for item_id in equipment:
-                # #     equipment_id = item_id['equipmentID']
-                # #     equipment_ids.append(equipment_id)
-                # return equipment_ids
                 return equipment
             else:
                 print("Failed to fetch customer equipment data.")
@@ -188,26 +184,7 @@ class PowercodeManager:
             print("Error:", e)
             return None
 
-        # def createPCEquipment(customerID, macAddress, addressRangev4=10228, customer_name="", deviceCategory="Router",
-        #                       deviceType="Customer Owned Equipment"):
-        """
-        Adding equipment to customer acc\
-        addressRangev4 in real powercode is
-        Need to find deviceCategory, deviceType, addressRangev4
-
-        FROM REAL PC:
-        deviceCategory =
-        deviceType = 	Customer Router ID=58
-        addressRangev4 =
-        ID      Name
-        10230   PUBLIC-CGNT162-VLAN-633-YF_Business
-        10231   PUBLIC-CGNT163-VLAN-633-YF_Business
-
-        10228	CGNAT-POOL1-VLAN-533-YF_Residential	100.80.0.2 - 100.80.7.252
-        10229	CGNAT-POOL1-VLAN-633-YF_Business	100.80.8.2 - 100.80.15.252
-
-        """
-
+    
     def get_mac_address(self, equipment_id):
         equipment_data = self.read_equipment(equipment_id)
         if equipment_data:
@@ -259,52 +236,7 @@ class PowercodeManager:
 
         return False
 
-        ### Sample respond:
-        """
-        {
-            'message': 'Customer',
-            'statusCode': 0,
-            'customer': {
-                         'customerId': '16337', - this
-                         'companyName': 'Sid Williamson', - this
-                         'firstName': 'Sid', - this
-                         'lastName': 'Williamson',- this
-                         'extAccountID': '716574', - this
-                         'status': 'Lead', - this
-                         'customerSecurityCode': '0',
-                         'socialSecurityNumber': None,
-                         'emailAddress': 'sidneypwilliamson@gmail.com',
-                         'phone': {'Home': '4065796292'},
-                         'customerPortalUsername': 'sidneypwilliamson@gmail.com',
-                         'customerPortalPassword': '$2y$10$lAQEavI9T0q/KmFjxEm2D.rCk4Y9pIlHRak82VJj1RQcOT2UqH/He',
-                         'physicalStreet': '405 S 5TH AVENUE',
-                         'physicalAddress2': None,
-                         'physicalCity': 'Bozeman',
-                         'physicalState': 'MT',
-                         'physicalZip': '59715',
-                         'physicalLatitude': '45.6750353',
-                         'physicalLongitude': '-111.0441624',
-                         'billingStreet': '405 S 5TH AVENUE',
-                         'billingAddress2': None,
-                         'billingCity': 'Bozeman',
-                         'billingState': 'MT',
-                         'billingZip': '59715',
-                         'billingLatitude': '45.6750353',
-                         'billingLongitude': '-111.0441624',
-                         'taxZoneId': '1', 'invoicePreference':
-                         'No Invoice',
-                         'billDay': '0',
-                         'dueByDays': '0',
-                         'prePayMonths': '1',
-                         'gracePeriodDays': '10',
-                         'poNumber': None,
-                         'autoPayStatus': 0,
-                         'currentBalance': '0.00',
-                         'currentAmountDue': '0.00',
-                         'pastDueBalance': '0.00'
-                        }
-        }
-        """
+    
     def update_equipment_needed(self, existing_equipment, first_name, last_name, mac_address):
         return (existing_equipment["name"] != f"{first_name} {last_name} - Cust RTR" or
                 existing_equipment["macAddress"].lower() != mac_address.lower())
@@ -485,36 +417,6 @@ class PowercodeManager:
             log_message('error',f"Error: {e}", filename)
             return False
 
-        # Find matching equipment in Powercode based on device type and category
-
-    # def login_customer(self, username, password):
-    #     url = self.powercode_management_url + ':444/api/1/index.php'
-    #
-    #     headers = {
-    #         'Accept': 'application/json'
-    #     }
-    #
-    #     payload = {
-    #         'action': "customerLogin",
-    #         'username': username,
-    #         'password': password
-    #     }
-    #     response = requests.post(url, json=payload, headers=headers)
-    #     if response.status_code == 200:
-    #         try:
-    #             json_response = response.json()
-    #             if json_response.get('statusCode') == 0:
-    #                 token = json_response.get('token')
-    #                 customer_id = json_response.get('customerID')
-    #                 print(f"Login Successful! Customer ID: {customer_id}")
-    #                 return customer_id
-    #             else:
-    #                 message = json_response.get('message')
-    #                 print(f"Login Failed: {message}")
-    #         except json.JSONDecodeError:
-    #             print(f"Failed to decode JSON response: {response.content}")
-    #     else:
-    #         print("Failed to connect to the API.")
 
     def delete_equipment(self, equipment_id):
         url = self.powercode_management_url + ':444/api/1/index.php'
@@ -608,3 +510,4 @@ class PowercodeManager:
             # Handle exceptions, e.g., connection errors
             print(f"Error: {e}")
             return None
+
