@@ -1,6 +1,6 @@
 # DLR - DHCP Lease Runner
 
-This project automates the process of managing customers and equipment in Powercode and Utopia systems and specifically for GlobalNet. 
+This project automates the process of managing customers and equipment in Powercode and Utopia systems and made specifically for GlobalNet. 
 
 ## Introduction
 
@@ -29,4 +29,5 @@ This project aims to streamline the process of managing customers and equipment 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
 
